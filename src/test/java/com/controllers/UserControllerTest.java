@@ -32,11 +32,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
+    private User newUser;
+
     @MockBean
     private UserRepository mockUserRepository;
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper jsonObjectMapper;
 
     @Before
     public void setUp() {
@@ -58,6 +63,17 @@ public class UserControllerTest {
         given(mockUserRepository.findAll()).willReturn(mockUsers);
         given(mockUserRepository.findById(1L)).willReturn(java.util.Optional.ofNullable(firstUser));
         given(mockUserRepository.findById(4L)).willReturn(null);
+
+        doAnswer(invocation -> {
+            throw new EmptyResultDataAccessException("ERROR MESSAGE FROM MOCK!!!", 1234);
+        }).when(mockUserRepository).deleteById(4L);
+
+        newUser = new User(
+                "new_user_for_create",
+                "New",
+                "User"
+        );
+        given(mockUserRepository.save(newUser)).willReturn(newUser);
     }
 
     @Test
@@ -154,6 +170,62 @@ public class UserControllerTest {
         this.mockMvc.perform(delete("/users/1"));
 
         verify(mockUserRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void deleteUserById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+                .perform(delete("/users/4"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void createUser_success_returnsStatusOk() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        post("/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(newUser))
+                )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void createUser_success_returnsUserName() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        post("/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(newUser))
+                )
+                .andExpect(jsonPath("$.userName", is("new_user_for_create")));
+    }
+
+    @Test
+    public void createUser_success_returnsFirstName() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        post("/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(newUser))
+                )
+                .andExpect(jsonPath("$.firstName", is("New")));
+    }
+
+    @Test
+    public void createUser_success_returnsLastName() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        post("/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(newUser))
+                )
+                .andExpect(jsonPath("$.lastName", is("User")));
     }
 
 }
