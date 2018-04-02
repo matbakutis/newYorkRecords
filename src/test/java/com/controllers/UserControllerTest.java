@@ -23,7 +23,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnsStatusOK() throws Exception {
 
         this.mockMvc
-                .perform(get("/"))
+                .perform(get("/users"))
                 .andExpect(status().isOk());
     }
 

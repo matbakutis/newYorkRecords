@@ -23,9 +23,9 @@ dockerCompose {
 }
 dockerCompose.isRequiredBy(test)
 
-task waitForPostgres(type: Exec) {
-	commandLine './wait-for-postgres.sh','postgresdev', 'postgres', 'pgdev', 'password'
-}
+//task waitForPostgres(type: Exec) {
+//	commandLine './wait-for-postgres.sh','postgresdev', 'postgres', 'pgdev', 'password'
+//}
 
 task waitForAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8090/users', 'Users API'
@@ -34,7 +34,7 @@ task waitForAPI(type: Exec) {
 test {
 	dependsOn cleanTest
 	dependsOn waitForAPI
-	dependsOn waitForPostgres
+//	dependsOn waitForPostgres
 
 	testLogging {
 		exceptionFormat "full"
