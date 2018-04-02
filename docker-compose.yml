@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  users:
+    image: anapsix/alpine-java:8_jdk_unlimited
+    ports:
+      - '8090:8090'
+    working_dir: /back-end-users
+    volumes:
+      - .:/back-end-users
+    command: './gradlew bootRun'
+    depends_on:
+      - postgresdev
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
+  postgresdev:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=pgdev
