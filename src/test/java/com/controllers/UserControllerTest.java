@@ -74,4 +74,28 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    public void findAllUsers_success_returnUserNameForEachUser() throws Exception {
+
+        this.mockMvc
+                .perform(get("/users"))
+                .andExpect(jsonPath("$[0].userName", is("someone")));
+    }
+
+    @Test
+    public void findAllUsers_success_returnFirstNameForEachUser() throws Exception {
+
+        this.mockMvc
+                .perform(get("/users"))
+                .andExpect(jsonPath("$[0].firstName", is("Ima")));
+    }
+
+    @Test
+    public void findAllUsers_success_returnLastNameForEachUser() throws Exception {
+
+        this.mockMvc
+                .perform(get("/users"))
+                .andExpect(jsonPath("$[0].lastName", is("Person")));
+    }
+
 }
