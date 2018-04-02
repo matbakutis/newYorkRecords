@@ -57,6 +57,7 @@ public class UserControllerTest {
 
         given(mockUserRepository.findAll()).willReturn(mockUsers);
         given(mockUserRepository.findById(1L)).willReturn(java.util.Optional.ofNullable(firstUser));
+        given(mockUserRepository.findById(4L)).willReturn(null);
     }
 
     @Test
@@ -129,6 +130,14 @@ public class UserControllerTest {
         this.mockMvc
                 .perform(get("/users/1"))
                 .andExpect(jsonPath("$.lastName", is("Person")));
+    }
+
+    @Test
+    public void findUserById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+                .perform(get("/4"))
+                .andExpect(status().isNotFound());
     }
 
 }
