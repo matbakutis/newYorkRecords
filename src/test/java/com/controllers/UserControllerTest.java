@@ -76,6 +76,7 @@ public class UserControllerTest {
         given(mockUserRepository.save(newUser)).willReturn(newUser);
     }
 
+    // Find All Tests
     @Test
     public void findAllUsers_success_returnsStatusOK() throws Exception {
 
@@ -116,6 +117,8 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$[0].lastName", is("Person")));
     }
 
+
+    // Find user by id tests
     @Test
     public void findUserById_success_returnsStatusOK() throws Exception {
 
@@ -156,6 +159,8 @@ public class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+
+    // Delete user by id tests
     @Test
     public void deleteUserById_success_returnsStatusOk() throws Exception {
 
@@ -180,12 +185,14 @@ public class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+
+    // Create user tests
     @Test
     public void createUser_success_returnsStatusOk() throws Exception {
 
         this.mockMvc
                 .perform(
-                        post("/")
+                        post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )
@@ -197,7 +204,7 @@ public class UserControllerTest {
 
         this.mockMvc
                 .perform(
-                        post("/")
+                        post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )
@@ -209,7 +216,7 @@ public class UserControllerTest {
 
         this.mockMvc
                 .perform(
-                        post("/")
+                        post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )
@@ -221,7 +228,7 @@ public class UserControllerTest {
 
         this.mockMvc
                 .perform(
-                        post("/")
+                        post("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )

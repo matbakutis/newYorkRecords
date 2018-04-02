@@ -42,6 +42,11 @@ public class UserController {
         return HttpStatus.OK;
     }
 
+    @PostMapping("/users")
+    public User createNewUser(@RequestBody User newUser) {
+        return userRepository.save(newUser);
+    }
+
     @ExceptionHandler
     void handleUserNotFound(
             NotFoundException exception,
