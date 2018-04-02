@@ -136,8 +136,24 @@ public class UserControllerTest {
     public void findUserById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-                .perform(get("/4"))
+                .perform(get("/users/4"))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteUserById_success_returnsStatusOk() throws Exception {
+
+        this.mockMvc
+                .perform(delete("/users/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteUserById_success_deletesViaRepository() throws Exception {
+
+        this.mockMvc.perform(delete("/users/1"));
+
+        verify(mockUserRepository, times(1)).deleteById(1L);
     }
 
 }

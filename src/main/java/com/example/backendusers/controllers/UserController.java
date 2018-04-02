@@ -5,10 +5,7 @@ import com.example.backendusers.repositories.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,6 +31,12 @@ public class UserController {
         }
 
         return foundUser;
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public HttpStatus deleteUserById(@PathVariable Long userId) {
+        userRepository.deleteById(userId);
+        return HttpStatus.OK;
     }
 
     @ExceptionHandler
