@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  flyway:
+    image: gsengun/flyway-postgres
+    command: 'postgresdev 5432 postgres password pgdev public'
+    volumes:
+      - ./flywayMigrations:/flyway/sql
+    depends_on:
+      - postgresdev
   users:
     image: anapsix/alpine-java:8_jdk_unlimited
     ports:
