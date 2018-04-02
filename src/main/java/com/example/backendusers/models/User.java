@@ -16,10 +16,10 @@ public class User {
     @Column(name = "username")
     private String userName;
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
     public User(String userName, String firstName, String lastName) {
