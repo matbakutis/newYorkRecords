@@ -47,6 +47,21 @@ public class UserController {
         return userRepository.save(newUser);
     }
 
+    @PatchMapping("/users/{userId}")
+    public User updateUserById(@PathVariable Long userId, @RequestBody User userRequest) throws NotFoundException {
+        User userFromDb = userRepository.findById(userId).orElse(null);
+
+        if (userFromDb == null) {
+            throw new NotFoundException("User with ID of " + userId + " was not found!");
+        }
+
+        userFromDb.setUserName(userRequest.getUserName());
+        userFromDb.setFirstName(userRequest.getFirstName());
+        userFromDb.setLastName(userRequest.getLastName());
+
+        return userRepository.save(userFromDb);
+    }
+
     @ExceptionHandler
     void handleUserNotFound(
             NotFoundException exception,
