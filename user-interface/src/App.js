@@ -114,7 +114,7 @@ class App extends Component {
 			'font-family': 'Comfortaa, cursive',
 			'font-weight': 'bold'
 		}
-		
+
 		const navLinkStyle = {
 			'marginRight': '30px',
 			'font-family': 'Comfortaa, cursive',
