@@ -57,6 +57,9 @@ public class UsersUIFeatureTest {
         // Visit the UI in a browser
         open("http://localhost:3000");
 
+        // Visit the users page
+        $("#usersLink").click();
+
         // There should only be two users
         $$("[data-user-display]").shouldHave(size(2));
 
