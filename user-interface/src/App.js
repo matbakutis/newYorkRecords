@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
 import UsersList from './components/UsersList'
 import NewUserForm from './components/NewUserForm'
 import Home from './components/Home'
@@ -13,7 +13,9 @@ class App extends Component {
 		this.state = {
 			users: [],
 			loggedIn: false,
-			user: {}
+			user: {},
+			redirectToLogin: false,
+			loginMessage: ''
 		}
 	}
 
@@ -54,6 +56,27 @@ class App extends Component {
             console.log("Error creating new User")
         }
 	}
+
+	logInUser = async (userUsername) => {
+		const user = this.state.users.find((user)=>{
+			return user.userName === userUsername;
+		})
+		if (user){
+			try {
+				const userResponse = await axios.get('/api/users/' + user.id)
+				const userFromDatabase = userResponse.data
+				this.setState({user: userFromDatabase, loggedIn: true, redirectToLogin: false, loginMessage: ''})
+			} catch (error) {
+				console.log("Error finding User")
+			}
+		}else {
+			this.setState({loginMessage: 'Username or Password Incorrect', loggedIn: false})
+		}
+	}
+
+	logOutUser = () => {
+		this.setState({user: {}, loggedIn: false})
+	}
 	
 
     render() {
@@ -69,8 +92,8 @@ class App extends Component {
 		)
 		
 		const LogInFormComponent = () => (
-            <LogIn createUser={this.createUser}/>
-        )
+            <LogIn logInUser={this.logInUser}/>
+		)
 
         return (
 			<Router>
@@ -80,7 +103,8 @@ class App extends Component {
 						<Link to="/users" id="usersLink">Users</Link>
 						{this.state.loggedIn ? <Link to="/profile" id="profileLink">Profile</Link> : null}
 						{!this.state.loggedIn ? <Link to="/login" id="loginLink">Log In</Link> : null}
-						{this.state.loggedIn ? <Link to="/logout" id="logoutLink">Log Out</Link> : null}
+						{this.state.loggedIn ? <Link to="/" id="logoutLink" onClick={this.logOutUser}>Log Out</Link> : null}
+						{this.state.loginMessage ? <h4>{this.state.loginMessage}</h4> : null}
 					</nav>
 					<Switch>
 						<Route exact path="/" component={Home}/>

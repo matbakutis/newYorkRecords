@@ -145,54 +145,31 @@ public class UsersUIFeatureTest {
         // Visit the log in page
         $("#loginLink").click();
 
-        // There should only be two users
-        $$("[data-user-display]").shouldHave(size(2));
-
-        $("#user-" + firstUserId + "-user-name").shouldHave(text("someone"));
-        $("#user-" + firstUserId + "-first-name").shouldHave(text("Ima"));
-        $("#user-" + firstUserId + "-last-name").shouldHave(text("Person"));
-
-        $("#user-" + secondUserId + "-user-name").shouldHave(text("someone_else"));
-        $("#user-" + secondUserId + "-first-name").shouldHave(text("Someone"));
-        $("#user-" + secondUserId + "-last-name").shouldHave(text("Else"));
-
-        // Visit the new user page
-        $("#new-user-link").click();
-
         // Make sure the link worked and the form is now showing
-        $("#new-user-form").should(appear);
+        $("#login-form").should(appear);
 
         // Add a new user
-        $("#new-user-user-name").sendKeys("third_user");
-        $("#new-user-first-name").sendKeys("Third");
-        $("#new-user-last-name").sendKeys("User");
-        $("#new-user-submit").click();
+        $("#login-user-name").sendKeys("another user");
+        $("#login-password").sendKeys("Third");
+        $("#login-submit").click();
 
         // Make sure we're now on the users page again
         $("#users-wrapper").should(appear);
 
-        // Now there should be three Users
-        $$("[data-user-display]").shouldHave(size(3));
+        // Make sure the log in link is visible
+        $("#loginLink").shouldNot(appear);
 
-        refresh();
+        // Make sure the log in link is visible
+        $("#logoutLink").should(appear);
 
-        // Now there should be three Users again after the refresh
-        $$("[data-user-display]").shouldHave(size(3));
+        // Logout
+        $("#logoutLink").click();
 
-        // Check that the data is showing up for the third User
-        Long thirdUserId = secondUserId + 1;
-        $("#user-" + thirdUserId + "-user-name").shouldHave(text("third_user"));
-        $("#user-" + thirdUserId + "-first-name").shouldHave(text("Third"));
-        $("#user-" + thirdUserId + "-last-name").shouldHave(text("User"));
+        // Make sure the log in link is visible
+        $("#loginLink").should(appear);
 
-        // Test Deleting the first user
-        $("#user-" + firstUserId).should(exist);
-        $$("[data-user-display]").shouldHave(size(3));
-
-        $("#delete-user-" + firstUserId).click();
-        $("#user-" + firstUserId).shouldNot(exist);
-
-        $$("[data-user-display]").shouldHave(size(2));
+        // Make sure the log in link is visible
+        $("#logoutLink").shouldNot(appear);
 
     }
 

@@ -14,7 +14,7 @@ class LogIn extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.props.createUser(this.state.user)
+        this.props.logInUser(this.state.user.userName)
 
         this.setState({ redirectToUsersPage: true })
     }
