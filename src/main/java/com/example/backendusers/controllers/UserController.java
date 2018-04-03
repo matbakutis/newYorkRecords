@@ -29,7 +29,7 @@ public class UserController {
     public Optional<User> findUserById(@PathVariable Long userId) throws NotFoundException {
         Optional<User> foundUser = userRepository.findById(userId);
 
-        if (foundUser == null) {
+        if (!foundUser.isPresent()) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
         }
 
@@ -49,17 +49,18 @@ public class UserController {
 
     @PatchMapping("/users/{userId}")
     public User updateUserById(@PathVariable Long userId, @RequestBody User userRequest) throws NotFoundException {
-        User userFromDb = userRepository.findById(userId).orElse(null);
+        Optional<User> userFromDb = userRepository.findById(userId);
 
-        if (userFromDb == null) {
+        if (!userFromDb.isPresent()) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
         }
 
-        userFromDb.setUserName(userRequest.getUserName());
-        userFromDb.setFirstName(userRequest.getFirstName());
-        userFromDb.setLastName(userRequest.getLastName());
+        User foundUser = userFromDb.get();
+        foundUser.setUserName(userRequest.getUserName());
+        foundUser.setFirstName(userRequest.getFirstName());
+        foundUser.setLastName(userRequest.getLastName());
 
-        return userRepository.save(userFromDb);
+        return userRepository.save(foundUser);
     }
 
     @ExceptionHandler

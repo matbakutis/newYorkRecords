@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -63,11 +64,11 @@ public class UserControllerTest {
 
         given(mockUserRepository.findAll()).willReturn(mockUsers);
         given(mockUserRepository.findById(1L)).willReturn(java.util.Optional.ofNullable(firstUser));
-        given(mockUserRepository.findById(4L)).willReturn(null);
+        given(mockUserRepository.findById(6L)).willReturn(java.util.Optional.ofNullable(null));
 
         doAnswer(invocation -> {
             throw new EmptyResultDataAccessException("ERROR MESSAGE FROM MOCK!!!", 1234);
-        }).when(mockUserRepository).deleteById(4L);
+        }).when(mockUserRepository).deleteById(6L);
 
         newUser = new User(
                 "new_user_for_create",
@@ -163,7 +164,7 @@ public class UserControllerTest {
     public void findUserById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-                .perform(get("/users/4"))
+                .perform(get("/users/6"))
                 .andExpect(status().isNotFound());
     }
 
@@ -189,7 +190,7 @@ public class UserControllerTest {
     public void deleteUserById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-                .perform(delete("/users/4"))
+                .perform(delete("/users/6"))
                 .andExpect(status().isNotFound());
     }
 
@@ -291,5 +292,18 @@ public class UserControllerTest {
                 )
                 .andExpect(jsonPath("$.lastName", is("Info")));
     }
+
+    @Test
+    public void updateUserById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+                .perform(
+                        patch("/users/6")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
+                )
+                .andExpect(status().isNotFound());
+    }
+
 
 }
