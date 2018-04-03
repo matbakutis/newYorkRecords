@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import UsersList from './components/UsersList'
 import NewUserForm from './components/NewUserForm'
 import Home from './components/Home'
@@ -60,6 +60,16 @@ class App extends Component {
         }
 	}
 
+	updateUser = async (updatedUser) => {
+        try {
+            const newUserResponse = await axios.patch('/api/users', updatedUser)
+            this.getUsers();
+        } catch (error) {
+            console.log("Error updating User")
+        }
+	}
+
+
 	logInUser = async (userUsername) => {
 		const user = this.state.users.find((user)=>{
 			return user.userName === userUsername;
@@ -99,27 +109,27 @@ class App extends Component {
 		)
 
 		const ProfileComponent = () => (
-            <Profile user={this.state.user} deleteUser={this.deleteUser}/>
+            <Profile user={this.state.user} deleteUser={this.deleteUser} updateUser={this.updateUser}/>
 		)
 
 		const navBarStyle = {
 			'display': 'flex',
 			'flexDirection': 'row',
 			'alignItems': 'center',
-			'justify-content': 'space-between'
+			'justifyContent': 'space-between'
 		}
 
 		const navTitleStyle = {
 			'marginLeft': '30px',
-			'font-family': 'Comfortaa, cursive',
-			'font-weight': 'bold'
+			'fontFamily': 'Comfortaa, cursive',
+			'fontWeight': 'bold'
 		}
 
 		const navLinkStyle = {
 			'marginRight': '30px',
-			'font-family': 'Comfortaa, cursive',
+			'fontFamily': 'Comfortaa, cursive',
 			'color': 'black',
-			'text-decoration': 'none'
+			'textDecoration': 'none'
 		}
 
         return (

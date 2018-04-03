@@ -5,18 +5,18 @@ class Home extends Component {
 
 		const homeTitleStyle = {
 			'textAlign': 'center',
-			'font-family': 'Comfortaa, cursive',
-			'font-weight': 'bold'
+			'fontFamily': 'Comfortaa, cursive',
+			'fontWeight': 'bold'
 		}
 
 		const imageStyle = {
-			'background-image': 'url("http://hdwpro.com/wp-content/uploads/2018/02/new-york-background-image.jpg")',
+			'backgroundImage': 'url("http://hdwpro.com/wp-content/uploads/2018/02/new-york-background-image.jpg")',
 			'height': '400px', 
-			'background-attachment': 'fixed',
-			'background-position': 'center',
-			'background-repeat': 'no-repeat',
-			'background-size': 'cover',
-			'box-shadow': 'inset 0px 5px 20px #000'
+			'backgroundAttachment': 'fixed',
+			'backgroundPosition': 'center',
+			'backgroundRepeat': 'no-repeat',
+			'backgroundSize': 'cover',
+			'boxShadow': 'inset 0px 5px 20px #000'
 		}
 
 		return (

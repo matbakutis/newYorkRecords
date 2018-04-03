@@ -34,10 +34,21 @@ class NewUserForm extends Component {
             return <Redirect to="/users" />
         }
 
+        const userTitleStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive',
+            'fontWeight': 'bold'
+        }
+    
+        const formStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive'
+        }
+
         return (
             <div>
-                <h2>Create New User</h2>
-                <form onSubmit={this.handleSubmit} id="new-user-form">
+                <h2 style={userTitleStyle}>Create New User</h2>
+                <form onSubmit={this.handleSubmit} id="new-user-form" style={formStyle}>
                     <div>
                         <label htmlFor="userName">Username </label>
                         <input

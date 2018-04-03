@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import User from './User'
 import {Link} from "react-router-dom";
 
@@ -6,12 +6,12 @@ const UsersList = (props) => {
 
     const userTitleStyle = {
         'textAlign': 'center',
-        'font-family': 'Comfortaa, cursive',
-        'font-weight': 'bold'
+        'fontFamily': 'Comfortaa, cursive',
+        'fontWeight': 'bold'
     }
 
     const userCreateStyle = {
-        'font-family': 'Comfortaa, cursive',
+        'fontFamily': 'Comfortaa, cursive',
         'color': 'black'
     }
 

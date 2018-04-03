@@ -6,13 +6,15 @@ class LogIn extends Component {
     constructor() {
         super();
         this.state = {
-            user: {}
+            user: {},
+            redirect: false
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.logInUser(this.state.user.userName)
+        this.setState({ redirect: true })
     }
 
     handleChange = (event) => {
@@ -26,10 +28,26 @@ class LogIn extends Component {
 
     render() {
 
+
+        const loginTitleStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive',
+            'fontWeight': 'bold'
+        }
+
+        const formStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive'
+        }
+
+        if(this.state.redirect) {
+            return <Redirect to="/users" />
+        }
+    
         return (
             <div>
-                <h2>Log In</h2>
-                <form onSubmit={this.handleSubmit} id="login-form">
+                <h2 style={loginTitleStyle}>Log In</h2>
+                <form onSubmit={this.handleSubmit} id="login-form" style={formStyle}>
                     <div>
                         <label htmlFor="userName">Username </label>
                         <input
@@ -52,7 +70,8 @@ class LogIn extends Component {
                         <input
                             id="login-submit"
                             type="submit"
-                            value="Log In" />
+                            value="Log In"
+                            />
                     </div>
                 </form>
             </div>

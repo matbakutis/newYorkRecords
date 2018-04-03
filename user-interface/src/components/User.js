@@ -4,8 +4,8 @@ const User = (props) => {
 
 
     const userStyle = {
-        'font-family': 'Comfortaa, cursive',
-        'font-weight': 'light',
+        'fontFamily': 'Comfortaa, cursive',
+        'fontWeight': 'light',
         'color': 'black',
         'marginTop': '30px'
     }
