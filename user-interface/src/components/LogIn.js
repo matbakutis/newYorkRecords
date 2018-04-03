@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class LogIn extends Component {
 
     constructor() {
         super();
         this.state = {
-            user: {},
-            redirectToUsersPage: false
+            user: {}
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-
         this.props.logInUser(this.state.user.userName)
-
-        this.setState({ redirectToUsersPage: true })
     }
 
     handleChange = (event) => {
@@ -30,17 +26,14 @@ class LogIn extends Component {
 
     render() {
 
-        if (this.state.redirectToUsersPage) {
-            return <Redirect to="/users" />
-        }
-
         return (
             <div>
                 <h2>Log In</h2>
                 <form onSubmit={this.handleSubmit} id="login-form">
                     <div>
-                        <label htmlFor="userName">Username </label>
-                        <input
+                        <Input
+                            label={"Username"}
+                            labelPosition='left'
                             id="login-user-name"
                             type="text"
                             name="userName"
@@ -48,8 +41,9 @@ class LogIn extends Component {
                     </div>
 
                     <div>
-                        <label htmlFor="password">Password </label>
-                        <input
+                        <Input
+                            label={"Password"}
+                            labelPosition='left'
                             id="login-password"
                             type="password"
                             name="password"
