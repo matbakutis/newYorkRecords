@@ -24,7 +24,7 @@ dockerCompose {
 dockerCompose.isRequiredBy(test)
 
 task waitForAPI(type: Exec) {
-	commandLine './wait-for-api.sh','http://localhost:8090/users', 'Users API'
+	commandLine './wait-for-api.sh','http://localhost:8090/api/users', 'Users API'
 }
 
 test {
