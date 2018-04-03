@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 
 class Home extends Component {
 	render() {
+		
+		const homeTitleStyle = {
+			'textAlign': 'center'
+		}
+
 		return (
 			<div>
-				<h1>New York City Records</h1>
-				<h2>Users</h2>
+				<h1 style={homeTitleStyle}>New York City Records</h1>
 			</div>
 		);
 	}

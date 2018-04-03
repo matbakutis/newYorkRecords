@@ -31,9 +31,8 @@ class LogIn extends Component {
                 <h2>Log In</h2>
                 <form onSubmit={this.handleSubmit} id="login-form">
                     <div>
-                        <Input
-                            label={"Username"}
-                            labelPosition='left'
+                        <label htmlFor="userName">Username </label>
+                        <input
                             id="login-user-name"
                             type="text"
                             name="userName"
@@ -41,9 +40,8 @@ class LogIn extends Component {
                     </div>
 
                     <div>
-                        <Input
-                            label={"Password"}
-                            labelPosition='left'
+                        <label htmlFor="password">Password </label>
+                        <input
                             id="login-password"
                             type="password"
                             name="password"

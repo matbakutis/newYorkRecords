@@ -102,16 +102,39 @@ class App extends Component {
             <Profile user={this.state.user} deleteUser={this.deleteUser}/>
 		)
 
+		const navBarStyle = {
+			'display': 'flex',
+			'flexDirection': 'row',
+			'alignItems': 'center',
+			'justify-content': 'space-between'
+		}
+
+		const navTitleStyle = {
+			'marginLeft': '30px',
+			'font-family': 'Comfortaa, cursive',
+			'font-weight': 'bold'
+		}
+		
+		const navLinkStyle = {
+			'marginRight': '30px',
+			'font-family': 'Comfortaa, cursive',
+			'color': 'black',
+			'text-decoration': 'none'
+		}
+
         return (
 			<Router>
 				<div>
-					<nav>
-						<Link to="/" id="homeLink">Home</Link>
-						<Link to="/users" id="usersLink">Users</Link>
-						{this.state.loggedIn ? <Link to="/profile" id="profileLink">Profile</Link> : null}
-						{!this.state.loggedIn ? <Link to="/login" id="loginLink">Log In</Link> : null}
-						{this.state.loggedIn ? <Link to="/" id="logoutLink" onClick={this.logOutUser}>Log Out</Link> : null}
-						{this.state.loginMessage ? <h4 id="login-error-message">{this.state.loginMessage}</h4> : null}
+					<nav style={navBarStyle}>
+						<h1 style={navTitleStyle}>NYC Records</h1>
+						<div>
+							<Link to="/" id="homeLink" style={navLinkStyle}>Home</Link>
+							<Link to="/users" id="usersLink" style={navLinkStyle}>Users</Link>
+							{this.state.loggedIn ? <Link to="/profile" id="profileLink" style={navLinkStyle}>Profile</Link> : null}
+							{!this.state.loggedIn ? <Link to="/login" id="loginLink" style={navLinkStyle} >Log In</Link> : null}
+							{this.state.loggedIn ? <Link to="/" id="logoutLink" style={navLinkStyle} onClick={this.logOutUser}>Log Out</Link> : null}
+							{this.state.loginMessage ? <h4 id="login-error-message">{this.state.loginMessage}</h4> : null}
+						</div>
 					</nav>
 					<Switch>
 						<Route exact path="/" component={Home}/>
