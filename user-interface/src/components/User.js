@@ -1,18 +1,28 @@
 import React from 'react'
 
 const User = (props) => {
+
+
+    const userStyle = {
+        'font-family': 'Comfortaa, cursive',
+        'font-weight': 'light',
+        'color': 'black',
+        'marginTop': '30px'
+    }
+
+
     return (
-        <div id={`user-${props.user.id}`} data-user-display>
+        <div id={`user-${props.user.id}`} data-user-display style={userStyle}>
             <div id={`user-${props.user.id}-user-name`}>
-                {props.user.userName}
+                Username: {props.user.userName}
             </div>
 
             <div id={`user-${props.user.id}-first-name`}>
-                {props.user.firstName}
+                First Name: {props.user.firstName}
             </div>
 
             <div id={`user-${props.user.id}-last-name`}>
-                {props.user.lastName}
+                Last Name: {props.user.lastName}
             </div>
 
             <button
