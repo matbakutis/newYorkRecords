@@ -148,8 +148,8 @@ public class UsersUIFeatureTest {
         // Make sure the link worked and the form is now showing
         $("#login-form").should(appear);
 
-        // Add a new user
-        $("#login-user-name").sendKeys("another user");
+        // Log in
+        $("#login-user-name").sendKeys("someone");
         $("#login-password").sendKeys("Third");
         $("#login-submit").click();
 
@@ -168,8 +168,31 @@ public class UsersUIFeatureTest {
         // Make sure the log in link is visible
         $("#loginLink").should(appear);
 
-        // Make sure the log in link is visible
+        // Make sure the log out link is not visible
         $("#logoutLink").shouldNot(appear);
+
+        // Visit the log in page
+        $("#loginLink").click();
+
+        // Make sure the link worked and the form is now showing
+        $("#login-form").should(appear);
+
+        // log in with bad info
+        $("#login-user-name").sendKeys("asd user");
+        $("#login-password").sendKeys("Third");
+        $("#login-submit").click();
+
+        // Make sure we're now on the users page again
+        $("#users-wrapper").should(appear);
+
+        // Make sure the log in link is visible
+        $("#loginLink").should(appear);
+
+        // Make sure the log out link is not visible
+        $("#logoutLink").shouldNot(appear);
+
+        // Make sure error message is shown
+        $("#login-error-message").shouldHave(text("Username or Password Incorrect"));
 
     }
 

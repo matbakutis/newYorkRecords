@@ -104,7 +104,7 @@ class App extends Component {
 						{this.state.loggedIn ? <Link to="/profile" id="profileLink">Profile</Link> : null}
 						{!this.state.loggedIn ? <Link to="/login" id="loginLink">Log In</Link> : null}
 						{this.state.loggedIn ? <Link to="/" id="logoutLink" onClick={this.logOutUser}>Log Out</Link> : null}
-						{this.state.loginMessage ? <h4>{this.state.loginMessage}</h4> : null}
+						{this.state.loginMessage ? <h4 id="login-error-message">{this.state.loginMessage}</h4> : null}
 					</nav>
 					<Switch>
 						<Route exact path="/" component={Home}/>
