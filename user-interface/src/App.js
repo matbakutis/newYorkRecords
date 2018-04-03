@@ -5,6 +5,8 @@ import UsersList from './components/UsersList'
 import NewUserForm from './components/NewUserForm'
 import Home from './components/Home'
 import LogIn from './components/LogIn'
+import Profile from './components/Profile'
+
 
 class App extends Component {
 	
@@ -20,8 +22,11 @@ class App extends Component {
 	}
 
     async componentDidMount() {
-		const usersResponse = await axios.get('/api/users')
-		console.log(usersResponse.data, usersResponse)
+		this.getUsers()
+	}
+	
+	getUsers = async (userId) => {
+        const usersResponse = await axios.get('/api/users')
         this.setState({
             users: usersResponse.data,
             usersResponse
@@ -30,13 +35,11 @@ class App extends Component {
 
     deleteUser = async (userId, i) => {
         try {
-            await axios.delete(`/api/users/${userId}`)
-
-            const updatedUsersList = [...this.state.users]
-            updatedUsersList.splice(i, 1)
-
-            this.setState({users: updatedUsersList})
-
+			await axios.delete(`/api/users/${userId}`)
+			if (this.state.user.id === userId){
+				this.setState({user: {}, loggedIn: false})
+			}
+			this.getUsers()
         } catch (error) {
             console.log("Error deleting User with ID: " + userId)
         }
@@ -95,6 +98,10 @@ class App extends Component {
             <LogIn logInUser={this.logInUser}/>
 		)
 
+		const ProfileComponent = () => (
+            <Profile user={this.state.user} deleteUser={this.deleteUser}/>
+		)
+
         return (
 			<Router>
 				<div>
@@ -111,6 +118,7 @@ class App extends Component {
 						<Route exact path="/users" render={UsersListComponent}/>
 						<Route exact path="/new" render={NewUserFormComponent}/>
 						<Route exact path="/login" render={LogInFormComponent}/>
+						<Route exact path="/profile" render={ProfileComponent}/>
 					</Switch>
 				</div>
             </Router>
