@@ -39,3 +39,5 @@ services:
       - ./user-interface:/user-interface
     depends_on:
       - users
+    environment:
+      - REACT_APP_USERS_API=http://localhost:8090

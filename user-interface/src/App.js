@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link, withRouter} from 'react-router-dom';
 import UsersList from './components/UsersList'
 import NewUserForm from './components/NewUserForm'
 import Home from './components/Home'
@@ -16,7 +16,6 @@ class App extends Component {
 			users: [],
 			loggedIn: false,
 			user: {},
-			redirectToLogin: false,
 			loginMessage: ''
 		}
 	}
@@ -26,7 +25,7 @@ class App extends Component {
 	}
 	
 	getUsers = async (userId) => {
-        const usersResponse = await axios.get('/api/users')
+        const usersResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/api/users`)
         this.setState({
             users: usersResponse.data,
             usersResponse
@@ -35,7 +34,7 @@ class App extends Component {
 
     deleteUser = async (userId, i) => {
         try {
-			await axios.delete(`/api/users/${userId}`)
+			await axios.delete(`${process.env.REACT_APP_USERS_API}/api/users/${userId}`)
 			if (this.state.user.id === userId){
 				this.setState({user: {}, loggedIn: false})
 			}
@@ -47,7 +46,7 @@ class App extends Component {
 
     createUser = async (newUser) => {
         try {
-            const newUserResponse = await axios.post('/api/users', newUser)
+            const newUserResponse = await axios.post(`${process.env.REACT_APP_USERS_API}/api/users`, newUser)
             const newUserFromDatabase = newUserResponse.data
 
             const updatedUsersList = [...this.state.users]
@@ -62,7 +61,7 @@ class App extends Component {
 
 	updateUser = async (updatedUser) => {
         try {
-            const newUserResponse = await axios.patch('/api/users', updatedUser)
+            const newUserResponse = await axios.patch(`${process.env.REACT_APP_USERS_API}/api/users`, updatedUser)
             this.getUsers();
         } catch (error) {
             console.log("Error updating User")
@@ -76,14 +75,14 @@ class App extends Component {
 		})
 		if (user){
 			try {
-				const userResponse = await axios.get('/api/users/' + user.id)
+				const userResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/api/users/${user.id}`)
 				const userFromDatabase = userResponse.data
-				this.setState({user: userFromDatabase, loggedIn: true, redirectToLogin: false, loginMessage: ''})
+				this.setState({user: userFromDatabase, loggedIn: true, loginMessage: ''})
 			} catch (error) {
 				console.log("Error finding User")
 			}
 		}else {
-			this.setState({loginMessage: 'Username or Password Incorrect', loggedIn: false})
+			this.setState({loginMessage: 'Username or Password Incorrect'})
 		}
 	}
 
@@ -105,7 +104,7 @@ class App extends Component {
 		)
 		
 		const LogInFormComponent = () => (
-            <LogIn logInUser={this.logInUser}/>
+            <LogIn message={this.state.loginMessage} loggedIn={this.state.loggedIn} logInUser={this.logInUser}/>
 		)
 
 		const ProfileComponent = () => (
@@ -143,7 +142,6 @@ class App extends Component {
 							{this.state.loggedIn ? <Link to="/profile" id="profileLink" style={navLinkStyle}>Profile</Link> : null}
 							{!this.state.loggedIn ? <Link to="/login" id="loginLink" style={navLinkStyle} >Log In</Link> : null}
 							{this.state.loggedIn ? <Link to="/" id="logoutLink" style={navLinkStyle} onClick={this.logOutUser}>Log Out</Link> : null}
-							{this.state.loginMessage ? <h4 id="login-error-message">{this.state.loginMessage}</h4> : null}
 						</div>
 					</nav>
 					<Switch>

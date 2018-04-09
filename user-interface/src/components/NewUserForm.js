@@ -7,7 +7,7 @@ class NewUserForm extends Component {
         super();
         this.state = {
             user: {},
-            redirectToUsersPage: false
+            redirectToUsers: false
         }
     }
 
@@ -16,7 +16,7 @@ class NewUserForm extends Component {
 
         this.props.createUser(this.state.user)
 
-        this.setState({redirectToUsersPage: true})
+        this.setState({redirectToUsers: true})
     }
 
     handleChange = (event) => {
@@ -30,7 +30,7 @@ class NewUserForm extends Component {
 
     render() {
 
-        if(this.state.redirectToUsersPage) {
+        if(this.state.redirectToUsers) {
             return <Redirect to="/users" />
         }
 

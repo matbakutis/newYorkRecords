@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom"
 
 class LogIn extends Component {
 
     constructor() {
         super();
         this.state = {
-            user: {},
-            redirect: false
+            user: {}
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.logInUser(this.state.user.userName)
-        this.setState({ redirect: true })
     }
 
     handleChange = (event) => {
@@ -39,14 +37,15 @@ class LogIn extends Component {
             'textAlign': 'center',
             'fontFamily': 'Comfortaa, cursive'
         }
-
-        if(this.state.redirect) {
-            return <Redirect to="/users" />
-        }
     
+        if(this.props.loggedIn) {
+            return <Redirect to="/profile" />
+        }
+
         return (
             <div>
                 <h2 style={loginTitleStyle}>Log In</h2>
+                {this.props.message ? <h4 id="login-error-message">{this.props.message}</h4> : null}
                 <form onSubmit={this.handleSubmit} id="login-form" style={formStyle}>
                     <div>
                         <label htmlFor="userName">Username </label>

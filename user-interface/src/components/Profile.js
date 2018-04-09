@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from "react-router-dom";
 
 class Profile extends Component {
     constructor(props){
@@ -20,9 +21,8 @@ class Profile extends Component {
             'textAlign': 'center'
         }
 
-
         return (
-            <div style={profileWrapperStyle}>
+            <div style={profileWrapperStyle} id="profile-wrapper">
                 <div style={userStyle}>
                     <div id={`user-${this.props.user.id}-user-name`}>
                         Username: {this.props.user.userName}
