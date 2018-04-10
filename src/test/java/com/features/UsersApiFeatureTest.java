@@ -41,13 +41,15 @@ public class UsersApiFeatureTest {
         User firstUser = new User(
                 "someone",
                 "Ima",
-                "Person"
+                "Person",
+                false
         );
 
         User secondUser = new User(
                 "someone_else",
                 "Someone",
-                "Else"
+                "Else",
+                false
         );
 
         Stream.of(firstUser, secondUser)
@@ -68,7 +70,8 @@ public class UsersApiFeatureTest {
         User userNotYetInDb = new User(
                 "new_user",
                 "Not",
-                "Yet Created"
+                "Yet Created",
+                false
         );
 
         given()

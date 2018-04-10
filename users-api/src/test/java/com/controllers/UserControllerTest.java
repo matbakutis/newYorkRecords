@@ -50,13 +50,15 @@ public class UserControllerTest {
         User firstUser = new User(
                 "someone",
                 "Ima",
-                "Person"
+                "Person",
+                false
         );
 
         User secondUser = new User(
                 "someone_else",
                 "Someone",
-                "Else"
+                "Else",
+                false
         );
 
         Iterable<User> mockUsers =
@@ -73,14 +75,16 @@ public class UserControllerTest {
         newUser = new User(
                 "new_user_for_create",
                 "New",
-                "User"
+                "User",
+                false
         );
         given(mockUserRepository.save(newUser)).willReturn(newUser);
 
         updatedSecondUser = new User(
                 "updated_username",
                 "Updated",
-                "Info"
+                "Info",
+                false
         );
         given(mockUserRepository.save(updatedSecondUser)).willReturn(updatedSecondUser);
     }

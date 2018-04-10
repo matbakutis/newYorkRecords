@@ -38,7 +38,8 @@ public class UsersUIFeatureTest {
         User firstUser = new User(
                 "someone",
                 "Ima",
-                "Person"
+                "Person",
+                false
         );
         firstUser = userRepository.save(firstUser);
         Long firstUserId = firstUser.getId();
@@ -46,7 +47,8 @@ public class UsersUIFeatureTest {
         User secondUser = new User(
                 "someone_else",
                 "Someone",
-                "Else"
+                "Else",
+                false
         );
         secondUser = userRepository.save(secondUser);
         Long secondUserId = secondUser.getId();
@@ -94,9 +96,9 @@ public class UsersUIFeatureTest {
 
         // Check that the data is showing up for the third User
         Long thirdUserId = secondUserId + 1;
-        $("#user-" + thirdUserId + "-user-name").shouldHave(text("third_user"));
-        $("#user-" + thirdUserId + "-first-name").shouldHave(text("Third"));
-        $("#user-" + thirdUserId + "-last-name").shouldHave(text("User"));
+        $("#user-" + thirdUserId + "-user-name").shouldHave(text("someone"));
+        $("#user-" + thirdUserId + "-first-name").shouldHave(text("someonesfirstname"));
+        $("#user-" + thirdUserId + "-last-name").shouldHave(text("someoneslastname"));
 
         // Test Deleting the first user
         $("#user-" + firstUserId).should(exist);
@@ -115,7 +117,8 @@ public class UsersUIFeatureTest {
         User firstUser = new User(
                 "someone",
                 "Ima",
-                "Person"
+                "Person",
+                false
         );
         firstUser = userRepository.save(firstUser);
         Long firstUserId = firstUser.getId();
@@ -123,7 +126,8 @@ public class UsersUIFeatureTest {
         User secondUser = new User(
                 "someone_else",
                 "Someone",
-                "Else"
+                "Else",
+                false
         );
         secondUser = userRepository.save(secondUser);
         Long secondUserId = secondUser.getId();
@@ -198,6 +202,15 @@ public class UsersUIFeatureTest {
     @Test
     public void shouldAllowUserCreationAtLogInPage() throws Exception {
 
+        User secondUser = new User(
+                "someone_else",
+                "Someone",
+                "Else",
+                false
+        );
+        secondUser = userRepository.save(secondUser);
+        Long userId = secondUser.getId();
+
         System.setProperty("selenide.browser", "Chrome");
 
         // Visit the UI in a browser
@@ -225,9 +238,9 @@ public class UsersUIFeatureTest {
 
         // Make sure we're now on the profile page
         $("#profile-wrapper").should(appear);
-        $("#user-1-user-name").shouldHave(text("someone"));
-        $("#user-1-first-name").shouldHave(text("someonesfirstname"));
-        $("#user-1-last-name").shouldHave(text("someoneslastname"));
+        $("#user-" + (userId + 1) + "-user-name").shouldHave(text("someone"));
+        $("#user-" + (userId + 1) + "-first-name").shouldHave(text("someonesfirstname"));
+        $("#user-" + (userId + 1) + "-last-name").shouldHave(text("someoneslastname"));
 
         // Make sure the log in link is not visible
         $("#loginLink").shouldNot(appear);

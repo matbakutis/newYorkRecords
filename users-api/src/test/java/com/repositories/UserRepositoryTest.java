@@ -29,16 +29,20 @@ public class UserRepositoryTest {
 
     @Before
     public void setUp() {
+        userRepository.deleteAll();
+
         User firstUser = new User(
                 "user_name",
                 "some first name",
-                "some last name"
+                "some last name",
+                false
         );
 
         User secondUser = new User(
                 "second_user",
                 "some other first name",
-                "some other last name"
+                "some other last name",
+                false
         );
 
         entityManager.persist(firstUser);

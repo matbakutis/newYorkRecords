@@ -16,37 +16,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'docker-compose'
 
-dockerCompose {
-	useComposeFiles = ['docker-compose.yml']
-}
-
-
-task waitForAPI(type: Exec) {
-	commandLine './wait-for-api.sh','http://localhost:8090/api/users', 'Users API'
-}
-
-task runUsersAPITests(type: Exec) {
-	workingDir './users-api'
-	commandLine './gradlew', 'test'
-}
-
-task allTests(type: Test) {
-	dependsOn cleanTest
-	dependsOn waitForAPI
-	dependsOn runUsersAPITests
-
-	testLogging {
-		exceptionFormat "full"
-		events "skipped", "passed", "failed"
-		displayGranularity 2
-	}
-}
 
 test {
 	dependsOn cleanTest
-	dependsOn waitForAPI
 
 	testLogging {
 		exceptionFormat "full"
@@ -73,15 +46,6 @@ dependencies {
 	runtime 'org.postgresql:postgresql'
 	runtime 'org.springframework.boot:spring-boot-devtools'
 
-	testCompile 'org.seleniumhq.selenium:selenium-java:3.9.1'
-	testCompile 'org.seleniumhq.selenium:selenium-api:3.9.1'
-	testCompile 'org.seleniumhq.selenium:selenium-remote-driver:3.9.1'
-	testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:3.9.1'
-	testCompile 'org.seleniumhq.selenium:selenium-support:3.9.1'
-	testCompile 'com.codeborne:selenide:4.10.01'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile 'io.rest-assured:rest-assured:3.0.6'
 }
-
-dockerCompose.isRequiredBy(test)
-dockerCompose.isRequiredBy(allTests)
