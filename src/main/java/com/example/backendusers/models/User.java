@@ -22,9 +22,13 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
-    public User(String userName, String firstName, String lastName) {
+    @Column(name = "admin")
+    private Boolean admin;
+
+    public User(String userName, String firstName, String lastName, Boolean admin) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.admin = admin;
     }
 }

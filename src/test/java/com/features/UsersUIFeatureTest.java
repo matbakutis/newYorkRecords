@@ -71,17 +71,15 @@ public class UsersUIFeatureTest {
         $("#user-" + secondUserId + "-first-name").shouldHave(text("Someone"));
         $("#user-" + secondUserId + "-last-name").shouldHave(text("Else"));
 
-        // Visit the new user page
-        $("#new-user-link").click();
-
         // Make sure the link worked and the form is now showing
-        $("#new-user-form").should(appear);
+        $("#create-account-form").should(appear);
 
-        // Add a new user
-        $("#new-user-user-name").sendKeys("third_user");
-        $("#new-user-first-name").sendKeys("Third");
-        $("#new-user-last-name").sendKeys("User");
-        $("#new-user-submit").click();
+        // Create Account
+        $("#create-user-name").sendKeys("someone");
+        $("#create-password").sendKeys("someonespassword");
+        $("#create-first-name").sendKeys("someonesfirstname");
+        $("#create-last-name").sendKeys("someoneslastname");
+        $("#create-submit").click();
 
         // Make sure we're now on the users page again
         $("#users-wrapper").should(appear);
@@ -197,76 +195,76 @@ public class UsersUIFeatureTest {
     }
 
 
-//    @Test
-//    public void shouldAllowUserCreationAtLogInPage() throws Exception {
-//
-//        System.setProperty("selenide.browser", "Chrome");
-//
-//        // Visit the UI in a browser
-//        open("http://localhost:3000");
-//
-//        // Make sure the log in link is visible
-//        $("#loginLink").should(appear);
-//
-//        // Make sure the log in link is visible
-//        $("#logoutLink").shouldNot(appear);
-//
-//        // Visit the log in page
-//        $("#loginLink").click();
-//
-//        // Make sure the link worked and the form is now showing
-//        $("#login-form").should(appear);
-//        $("#create-account-form").should(appear);
-//
-//        // Create Account
-//        $("#create-user-name").sendKeys("someone");
-//        $("#create-password").sendKeys("someonespassword");
-//        $("#create-first-name").sendKeys("someonesfirstname");
-//        $("#create-last-name").sendKeys("someoneslastname");
-//        $("#create-submit").click();
-//
-//        // Make sure we're now on the profile page
-//        $("#profile-wrapper").should(appear);
-//        $("#user-1-user-name").shouldHave(text("someone"));
-//        $("#user-1-first-name").shouldHave(text("someonesfirstname"));
-//        $("#user-1-last-name").shouldHave(text("someoneslastname"));
-//
-//        // Make sure the log in link is not visible
-//        $("#loginLink").shouldNot(appear);
-//
-//        // Make sure the log out link is visible
-//        $("#logoutLink").should(appear);
-//
-//        // Logout
-//        $("#logoutLink").click();
-//
-//        // Make sure the log in link is visible
-//        $("#loginLink").should(appear);
-//
-//        // Make sure the log out link is not visible
-//        $("#logoutLink").shouldNot(appear);
-//
-//        // Visit the log in page
-//        $("#loginLink").click();
-//
-//        // Make sure the link worked and the form is now showing
-//        $("#login-form").should(appear);
-//
-//        // log in with the new account
-//        $("#login-user-name").sendKeys("someone");
-//        $("#login-password").sendKeys("someonespassword");
-//        $("#login-submit").click();
-//
-//        // Make sure we're now on the profile page again
-//        $("#profile-wrapper").should(appear);
-//
-//        // Make sure the log in link is not visible
-//        $("#loginLink").shouldNot(appear);
-//
-//        // Make sure the log out link is visible
-//        $("#logoutLink").should(appear);
-//
-//    }
+    @Test
+    public void shouldAllowUserCreationAtLogInPage() throws Exception {
+
+        System.setProperty("selenide.browser", "Chrome");
+
+        // Visit the UI in a browser
+        open("http://localhost:3000");
+
+        // Make sure the log in link is visible
+        $("#loginLink").should(appear);
+
+        // Make sure the log in link is visible
+        $("#logoutLink").shouldNot(appear);
+
+        // Visit the log in page
+        $("#loginLink").click();
+
+        // Make sure the link worked and the form is now showing
+        $("#login-form").should(appear);
+        $("#create-account-form").should(appear);
+
+        // Create Account
+        $("#create-user-name").sendKeys("someone");
+        $("#create-password").sendKeys("someonespassword");
+        $("#create-first-name").sendKeys("someonesfirstname");
+        $("#create-last-name").sendKeys("someoneslastname");
+        $("#create-submit").click();
+
+        // Make sure we're now on the profile page
+        $("#profile-wrapper").should(appear);
+        $("#user-1-user-name").shouldHave(text("someone"));
+        $("#user-1-first-name").shouldHave(text("someonesfirstname"));
+        $("#user-1-last-name").shouldHave(text("someoneslastname"));
+
+        // Make sure the log in link is not visible
+        $("#loginLink").shouldNot(appear);
+
+        // Make sure the log out link is visible
+        $("#logoutLink").should(appear);
+
+        // Logout
+        $("#logoutLink").click();
+
+        // Make sure the log in link is visible
+        $("#loginLink").should(appear);
+
+        // Make sure the log out link is not visible
+        $("#logoutLink").shouldNot(appear);
+
+        // Visit the log in page
+        $("#loginLink").click();
+
+        // Make sure the link worked and the form is now showing
+        $("#login-form").should(appear);
+
+        // log in with the new account
+        $("#login-user-name").sendKeys("someone");
+        $("#login-password").sendKeys("someonespassword");
+        $("#login-submit").click();
+
+        // Make sure we're now on the profile page again
+        $("#profile-wrapper").should(appear);
+
+        // Make sure the log in link is not visible
+        $("#loginLink").shouldNot(appear);
+
+        // Make sure the log out link is visible
+        $("#logoutLink").should(appear);
+
+    }
 
 
 }

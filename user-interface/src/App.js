@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import {BrowserRouter as Router, Route, Switch, Link, withRouter} from 'react-router-dom';
 import UsersList from './components/UsersList'
-import NewUserForm from './components/NewUserForm'
 import Home from './components/Home'
 import LogIn from './components/LogIn'
 import Profile from './components/Profile'
@@ -44,7 +43,8 @@ class App extends Component {
         }
     }
 
-    createUser = async (newUser) => {
+    createUser = async (newUser, login) => {
+		console.log(newUser, login);
         try {
             const newUserResponse = await axios.post(`${process.env.REACT_APP_USERS_API}/api/users`, newUser)
             const newUserFromDatabase = newUserResponse.data
@@ -52,8 +52,12 @@ class App extends Component {
             const updatedUsersList = [...this.state.users]
             updatedUsersList.push(newUserFromDatabase)
 
-            this.setState({users: updatedUsersList})
-
+			if(login) {
+				this.setState({users: updatedUsersList})
+				this.logInUser(newUserFromDatabase.userName)
+			}else {
+				this.setState({users: updatedUsersList})
+			}
         } catch (error) {
             console.log("Error creating new User")
         }
@@ -96,15 +100,12 @@ class App extends Component {
         const UsersListComponent = () => (
             <UsersList
                 users={this.state.users}
-                deleteUser={this.deleteUser}/>
+				deleteUser={this.deleteUser}
+				createUser={this.createUser}/>
         )
-
-        const NewUserFormComponent = () => (
-            <NewUserForm createUser={this.createUser}/>
-		)
 		
 		const LogInFormComponent = () => (
-            <LogIn message={this.state.loginMessage} loggedIn={this.state.loggedIn} logInUser={this.logInUser}/>
+            <LogIn message={this.state.loginMessage} loggedIn={this.state.loggedIn} logInUser={this.logInUser} createUser={this.createUser} />
 		)
 
 		const ProfileComponent = () => (
@@ -147,7 +148,6 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/users" render={UsersListComponent}/>
-						<Route exact path="/new" render={NewUserFormComponent}/>
 						<Route exact path="/login" render={LogInFormComponent}/>
 						<Route exact path="/profile" render={ProfileComponent}/>
 					</Switch>
