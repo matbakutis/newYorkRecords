@@ -24,7 +24,7 @@ class App extends Component {
 	}
 	
 	getUsers = async (userId) => {
-        const usersResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/api/users`)
+        const usersResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/`)
         this.setState({
             users: usersResponse.data,
             usersResponse
@@ -33,7 +33,7 @@ class App extends Component {
 
     deleteUser = async (userId, i) => {
         try {
-			await axios.delete(`${process.env.REACT_APP_USERS_API}/api/users/${userId}`)
+			await axios.delete(`${process.env.REACT_APP_USERS_API}/${userId}`)
 			if (this.state.user.id === userId){
 				this.setState({user: {}, loggedIn: false})
 			}
@@ -46,7 +46,7 @@ class App extends Component {
     createUser = async (newUser, login) => {
 		console.log(newUser, login);
         try {
-            const newUserResponse = await axios.post(`${process.env.REACT_APP_USERS_API}/api/users`, newUser)
+            const newUserResponse = await axios.post(`${process.env.REACT_APP_USERS_API}/`, newUser)
             const newUserFromDatabase = newUserResponse.data
 
             const updatedUsersList = [...this.state.users]
@@ -65,7 +65,7 @@ class App extends Component {
 
 	updateUser = async (updatedUser) => {
         try {
-            const newUserResponse = await axios.patch(`${process.env.REACT_APP_USERS_API}/api/users`, updatedUser)
+            const newUserResponse = await axios.patch(`${process.env.REACT_APP_USERS_API}/`, updatedUser)
             this.getUsers();
         } catch (error) {
             console.log("Error updating User")
@@ -79,7 +79,7 @@ class App extends Component {
 		})
 		if (user){
 			try {
-				const userResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/api/users/${user.id}`)
+				const userResponse = await axios.get(`${process.env.REACT_APP_USERS_API}/${user.id}`)
 				const userFromDatabase = userResponse.data
 				this.setState({user: userFromDatabase, loggedIn: true, loginMessage: ''})
 			} catch (error) {

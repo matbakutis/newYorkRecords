@@ -59,7 +59,7 @@ public class UsersApiFeatureTest {
 
         // Test get all Users
         when()
-                .get("http://localhost:8090/api/users/")
+                .get("http://localhost:8090/")
                 .then()
                 .statusCode(is(200))
                 .and().body(containsString("someone"))
@@ -78,14 +78,14 @@ public class UsersApiFeatureTest {
                 .contentType(JSON)
                 .and().body(userNotYetInDb)
                 .when()
-                .post("http://localhost:8090/api/users")
+                .post("http://localhost:8090/")
                 .then()
                 .statusCode(is(200))
                 .and().body(containsString("new_user"));
 
         // Test get all Users
         when()
-                .get("http://localhost:8090/api/users/")
+                .get("http://localhost:8090/")
                 .then()
                 .statusCode(is(200))
                 .and().body(containsString("someone"))
@@ -94,7 +94,7 @@ public class UsersApiFeatureTest {
 
         // Test finding one user by ID
         when()
-                .get("http://localhost:8090/api/users/" + secondUser.getId())
+                .get("http://localhost:8090/" + secondUser.getId())
                 .then()
                 .statusCode(is(200))
                 .and().body(containsString("Someone"))
@@ -107,14 +107,14 @@ public class UsersApiFeatureTest {
                 .contentType(JSON)
                 .and().body(secondUser)
                 .when()
-                .patch("http://localhost:8090/api/users/" + secondUser.getId())
+                .patch("http://localhost:8090/" + secondUser.getId())
                 .then()
                 .statusCode(is(200))
                 .and().body(containsString("changed_name"));
 
         // Test deleting a user
         when()
-                .delete("http://localhost:8090/api/users/" + secondUser.getId())
+                .delete("http://localhost:8090/" + secondUser.getId())
                 .then()
                 .statusCode(is(200));
     }

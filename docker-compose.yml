@@ -1,6 +1,30 @@
 version: '3'
 
 services:
+  eureka:
+    image: anapsix/alpine-java:8_jdk_unlimited
+    ports:
+      - '8761:8761'
+    working_dir: /eureka-server
+    volumes:
+      - ./eureka-server:/eureka-server
+    command: './gradlew bootRun'
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
+  api-gateway:
+    image: anapsix/alpine-java:8_jdk_unlimited
+    ports:
+      - '8080:8080'
+    working_dir: /api-gateway
+    volumes:
+      - ./api-gateway:/api-gateway
+    depends_on:
+      - eureka
+    command: './gradlew bootRun'
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
   flyway:
     image: gsengun/flyway-postgres
     command: 'postgresdev 5432 postgres password pgdev public'
@@ -41,28 +65,4 @@ services:
     depends_on:
       - users
     environment:
-      - REACT_APP_USERS_API=http://localhost:8090
-  eureka:
-    image: anapsix/alpine-java:8_jdk_unlimited
-    ports:
-      - '8761:8761'
-    working_dir: /eureka-server
-    volumes:
-      - ./eureka-server:/eureka-server
-    command: './gradlew bootRun'
-    environment:
-      - GRADLE_USER_HOME=cache
-      - SPRING_PROFILES_ACTIVE=dev	
-  api-gateway:
-    image: anapsix/alpine-java:8_jdk_unlimited
-    ports:
-      - '8080:8080'
-    working_dir: /api-gateway
-    volumes:
-      - ./api-gateway:/api-gateway
-    depends_on:
-      - eureka
-    command: './gradlew bootRun'
-    environment:
-      - GRADLE_USER_HOME=cache
-      - SPRING_PROFILES_ACTIVE=dev
+      - REACT_APP_USERS_API=http://localhost:8080/users

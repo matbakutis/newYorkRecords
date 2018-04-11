@@ -20,47 +20,46 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/api/users")
+    @GetMapping("/")
     public Iterable<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/api/users/{userId}")
-    public Optional<User> findUserById(@PathVariable Long userId) throws NotFoundException {
-        Optional<User> foundUser = userRepository.findById(userId);
+    @GetMapping("/{userId}")
+    public User findUserById(@PathVariable Long userId) throws NotFoundException {
+        User foundUser = userRepository.findOne(userId);
 
-        if (!foundUser.isPresent()) {
+        if (foundUser == null) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
         }
 
         return foundUser;
     }
 
-    @DeleteMapping("/api/users/{userId}")
+    @DeleteMapping("/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId) throws EmptyResultDataAccessException {
-        userRepository.deleteById(userId);
+        userRepository.delete(userId);
         return HttpStatus.OK;
     }
 
-    @PostMapping("/api/users")
+    @PostMapping("/")
     public User createNewUser(@RequestBody User newUser) {
         return userRepository.save(newUser);
     }
 
-    @PatchMapping("/api/users/{userId}")
+    @PatchMapping("/{userId}")
     public User updateUserById(@PathVariable Long userId, @RequestBody User userRequest) throws NotFoundException {
-        Optional<User> userFromDb = userRepository.findById(userId);
+        User userFromDb = userRepository.findOne(userId);
 
-        if (!userFromDb.isPresent()) {
+        if (userFromDb == null) {
             throw new NotFoundException("User with ID of " + userId + " was not found!");
         }
 
-        User foundUser = userFromDb.get();
-        foundUser.setUserName(userRequest.getUserName());
-        foundUser.setFirstName(userRequest.getFirstName());
-        foundUser.setLastName(userRequest.getLastName());
+        userFromDb.setUserName(userRequest.getUserName());
+        userFromDb.setFirstName(userRequest.getFirstName());
+        userFromDb.setLastName(userRequest.getLastName());
 
-        return userRepository.save(foundUser);
+        return userRepository.save(userFromDb);
     }
 
     @ExceptionHandler

@@ -24,7 +24,7 @@ dockerCompose {
 
 
 task waitForAPI(type: Exec) {
-	commandLine './wait-for-api.sh','http://localhost:8090/api/users', 'Users API'
+	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
 }
 
 task runUsersAPITests(type: Exec) {
