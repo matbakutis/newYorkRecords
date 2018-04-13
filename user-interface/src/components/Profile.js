@@ -17,12 +17,19 @@ class Profile extends Component {
             'marginTop': '30px'
         }
 
+        const userTitleStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive',
+            'fontWeight': 'bold'
+        }
+
         const profileWrapperStyle = {
             'textAlign': 'center'
         }
 
         return (
             <div style={profileWrapperStyle} id="profile-wrapper">
+                <h1 style={userTitleStyle}>{this.props.user.firstName}'s Profile</h1>
                 <div style={userStyle}>
                     <div id={`user-${this.props.user.id}-user-name`}>
                         Username: {this.props.user.userName}

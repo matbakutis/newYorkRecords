@@ -38,7 +38,7 @@ class CreateForm extends Component {
 
         return (
             <div>
-                <h2 style={userTitleStyle}>Create An Account</h2>
+                <h1 style={userTitleStyle}>Create An Account</h1>
                 <form onSubmit={this.handleSubmit} id="create-account-form" style={formStyle}>
                     <div>
                         <label htmlFor="firstName">First Name </label>

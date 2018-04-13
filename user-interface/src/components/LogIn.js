@@ -46,7 +46,7 @@ class LogIn extends Component {
         return (
             <div>
                 <div>
-                    <h2 style={loginTitleStyle}>Log In</h2>
+                    <h1 style={loginTitleStyle}>Log In</h1>
                     {this.props.message ? <h4 id="login-error-message">{this.props.message}</h4> : null}
                     <form onSubmit={this.handleSubmit} id="login-form" style={formStyle}>
                         <div>

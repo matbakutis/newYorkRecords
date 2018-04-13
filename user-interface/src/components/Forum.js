@@ -53,16 +53,26 @@ class Forum extends Component {
 
     render() {
 
+        const postWrapperStyle = {
+            'textAlign': 'center'
+        }
+
         const posts = this.state.posts.map((post, i) => {
-            return <div key={i}>
+            return <div key={i} style={postWrapperStyle}>
                         <ForumPost post={post} user={this.props.user} loggedIn={this.props.loggedIn}  />
                         {this.props.user.id === post.userid ? <button onClick={() => {this.deletePost(post.id)}}>Delete</button> : null}
                    </div>
-            })
+        })
+
+        const forumTitleStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive',
+            'fontWeight': 'bold'
+        }
 
         return (
             <div>
-                <h2>Forum Posts</h2>
+                <h1 style={forumTitleStyle}>Forum Posts</h1>
                 {posts}
                 <CreatePost user={this.props.user} createPost={this.createPost} />
             </div>
