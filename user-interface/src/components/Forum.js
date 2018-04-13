@@ -42,11 +42,23 @@ class Forum extends Component {
         }
     }
 
+    deletePost = async (postid) => {
+        try {
+			await axios.delete(`${process.env.REACT_APP_POSTS_API}/${postid}`)
+			this.getPosts()
+        } catch (error) {
+            console.log("Error deleting Post with ID: " + postid)
+        }
+    }
+
     render() {
 
         const posts = this.state.posts.map((post, i) => {
-            return <ForumPost post={post} key={i} user={this.props.user} loggedIn={this.props.loggedIn} />
-        })
+            return <div key={i}>
+                        <ForumPost post={post} user={this.props.user} loggedIn={this.props.loggedIn}  />
+                        {this.props.user.id === post.userid ? <button onClick={() => {this.deletePost(post.id)}}>Delete</button> : null}
+                   </div>
+            })
 
         return (
             <div>
