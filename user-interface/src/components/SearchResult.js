@@ -3,12 +3,12 @@ import React from 'react';
 const SearchResult = (props) => {
     return (
         <div>
-            { this.props.result.agency_name ? <h4>Agency: {props.result.agency_name}</h4> : null }
-            { this.props.result.category_description ? <h4>Category: {props.result.category_description}</h4> : null }
-            { this.props.result.vendor_name ? <h4>Vendor: {props.result.vendor_name}</h4> : null }
-            { this.props.result.request_id ? <h4>Request Id: {props.result.request_id}</h4> : null }
-            { this.props.result.short_title ? <h4>Short Title: {props.result.short_title}</h4> : null }
-            { this.props.result.printout_1 ? <p>Description: {props.result.printout_1}</p> : null }
+            { props.result.agency_name ? <div><h4>Agency:</h4> <p>{props.result.agency_name}</p></div> : null }
+            { props.result.category_description ? <div><h4>Category:</h4> <p>{props.result.category_description}</p></div> : null }
+            { props.result.vendor_name ? <div><h4>Vendor:</h4> <p>{props.result.vendor_name}</p></div> : null }
+            { props.result.request_id ? <div><h4>Request Id:</h4> <p>{props.result.request_id}</p></div> : null }
+            { props.result.short_title ? <div><h4>Short Title:</h4> <p>{props.result.short_title}</p></div> : null }
+            { props.result.printout_1 ? <div><h4>Description:</h4> <p>{props.result.printout_1}</p></div>: null }
         </div>
     );
 };

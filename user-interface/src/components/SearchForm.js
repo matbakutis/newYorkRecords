@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult'
+import axios from 'axios'
 
 class SearchForm extends Component {
     constructor(){
+        super();
         this.state = {
             results: [],
             search: ''
@@ -25,13 +27,13 @@ class SearchForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.get
+        this.getResults(this.state.search);
     }
 
     handleChange = (event) => {
-        const attributeToChange = event.target.name
-        const newValue = event.target.value;
-        this.setState({ attributeToChange: newValue })
+        const state = this.state;
+        state[event.target.name] = event.target.value;
+        this.setState(state);
     }
 
     render() {
@@ -45,14 +47,15 @@ class SearchForm extends Component {
                 <div>
                     <h3>Search by Type of Notice</h3>
                     <input
-                            id="search-bar"
-                            type="text"
-                            name="search"
-                            onChange={this.handleChange} required/>
+                        id="search-bar"
+                        type="text"
+                        name="search"
+                        onChange={this.handleChange} required/>
+                    <button onClick={this.handleSubmit}>Search</button>
                 </div>
                 <div>
                     <h3>Results</h3>
-                    {searchResults}
+                    { searchResults }
                 </div>
             </div>
         );
