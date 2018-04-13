@@ -1,8 +1,8 @@
 # newYorkRecords
 
 ## General Assembly SECA
-A user interface for the New York Records API.
-Created by Mat Bakutis for project 3 in General Assembly's SECA program.
+A user interface and forum for the New York Records API.
+Created by Mat Bakutis for project 34in General Assembly's SECA program.
 
 ## How to Use
 ```
@@ -14,5 +14,5 @@ $ docker-compose up
 ```
 $ git clone
 $ cd back-end-users
-$ ./gradlew test
+$ ./gradlew allTests
 ```
