@@ -65,13 +65,15 @@ public class PostControllerTest {
         Post firstPost = new Post(
                 "title1",
                 "content1",
-                1L
+                1L,
+                "username1"
         );
 
         Post secondPost = new Post(
                 "title2",
                 "content2",
-                2L
+                2L,
+                "username2"
         );
 
         Iterable<Post> mockPosts =
@@ -88,14 +90,16 @@ public class PostControllerTest {
         newPost = new Post(
                 "title3",
                 "content3",
-                3L
+                3L,
+                "username3"
         );
         given(mockPostRepository.save(newPost)).willReturn(newPost);
 
         updatedSecondPost = new Post(
                 "utitle2",
                 "ucontent2",
-                1L
+                1L,
+                "username1"
         );
         given(mockPostRepository.save(updatedSecondPost)).willReturn(updatedSecondPost);
     }

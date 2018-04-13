@@ -6,6 +6,7 @@ import Home from './components/Home'
 import LogIn from './components/LogIn'
 import Profile from './components/Profile'
 import SearchForm from './components/SearchForm'
+import Forum from './components/Forum'
 
 
 class App extends Component {
@@ -113,6 +114,10 @@ class App extends Component {
             <Profile user={this.state.user} deleteUser={this.deleteUser} updateUser={this.updateUser}/>
 		)
 
+		const ForumComponent = () => (
+            <Forum user={this.state.user} loggedIn={this.state.loggedIn} />
+		)
+
 		const navBarStyle = {
 			'display': 'flex',
 			'flexDirection': 'row',
@@ -141,6 +146,7 @@ class App extends Component {
 						<div>
 							<Link to="/" id="homeLink" style={navLinkStyle}>Home</Link>
 							<Link to="/search" id="searchLink" style={navLinkStyle}>Search</Link>
+							<Link to="/forum" id="forumLink" style={navLinkStyle}>Forum</Link>
 							{this.state.loggedIn && this.state.user.admin ? <Link to="/users" id="usersLink" style={navLinkStyle}>Users</Link> : null}
 							{this.state.loggedIn ? <Link to="/profile" id="profileLink" style={navLinkStyle}>Profile</Link> : null}
 							{!this.state.loggedIn ? <Link to="/login" id="loginLink" style={navLinkStyle} >Log In</Link> : null}
@@ -153,6 +159,7 @@ class App extends Component {
 						<Route exact path="/login" render={LogInFormComponent}/>
 						<Route exact path="/profile" render={ProfileComponent}/>
 						<Route exact path="/search" component={SearchForm}/>
+						<Route exact path="/forum" render={ForumComponent}/>
 					</Switch>
 				</div>
             </Router>

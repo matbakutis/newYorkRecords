@@ -22,9 +22,13 @@ public class Post {
     @Column(name = "userid")
     private Long userid;
 
-    public Post(String title, String content, Long userid) {
+    @Column(name = "username")
+    private String username;
+
+    public Post(String title, String content, Long userid, String username) {
         this.title = title;
         this.content = content;
         this.userid = userid;
+        this.username = username;
     }
 }

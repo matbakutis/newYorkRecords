@@ -7,9 +7,9 @@ VALUES
   ('username4', 'firstname4', 'lastname4', false);
 
 INSERT INTO posts
-  (title, content, userid)
+  (title, content, userid, username)
 VALUES
-  ('title1', 'content1', 1),
-  ('title2', 'content2', 2),
-  ('title3', 'content3', 3),
-  ('title4', 'content4', 4);
+  ('title1', 'content1', 1, 'username1'),
+  ('title2', 'content2', 2, 'username2'),
+  ('title3', 'content3', 3, 'username3'),
+  ('title4', 'content4', 4, 'username4');

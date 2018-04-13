@@ -80,3 +80,4 @@ services:
       - users
     environment:
       - REACT_APP_USERS_API=http://localhost:8080/users
+      - REACT_APP_POSTS_API=http://localhost:8080/posts

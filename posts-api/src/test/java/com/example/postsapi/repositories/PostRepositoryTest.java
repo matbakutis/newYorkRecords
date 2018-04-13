@@ -56,13 +56,15 @@ public class PostRepositoryTest {
         Post firstPost = new Post(
                 "title1",
                 "content1",
-                1L
+                1L,
+                "username1"
         );
 
         Post secondPost = new Post(
                 "title2",
                 "content2",
-                2L
+                2L,
+                "username2"
         );
 
         entityManager.persist(firstPost);
