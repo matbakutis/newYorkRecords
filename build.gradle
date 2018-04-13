@@ -23,8 +23,12 @@ dockerCompose {
 }
 
 
-task waitForAPI(type: Exec) {
+task waitForUsersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
+}
+
+task waitForPostsAPI(type: Exec) {
+	commandLine './wait-for-api.sh','http://localhost:8080/posts', 'Posts API'
 }
 
 task runUsersAPITests(type: Exec) {
@@ -32,10 +36,17 @@ task runUsersAPITests(type: Exec) {
 	commandLine './gradlew', 'test'
 }
 
+task runPostsAPITests(type: Exec) {
+	workingDir './posts-api'
+	commandLine './gradlew', 'test'
+}
+
 task allTests(type: Test) {
 	dependsOn cleanTest
-	dependsOn waitForAPI
+	dependsOn waitForUsersAPI
+	dependsOn waitForPostsAPI
 	dependsOn runUsersAPITests
+	dependsOn runPostsAPITests
 
 	testLogging {
 		exceptionFormat "full"
@@ -46,7 +57,8 @@ task allTests(type: Test) {
 
 test {
 	dependsOn cleanTest
-	dependsOn waitForAPI
+	dependsOn waitForUsersAPI
+	dependsOn waitForPostsAPI
 
 	testLogging {
 		exceptionFormat "full"

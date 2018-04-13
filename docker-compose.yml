@@ -46,6 +46,20 @@ services:
     environment:
       - GRADLE_USER_HOME=cache
       - SPRING_PROFILES_ACTIVE=dev
+  posts:
+    image: anapsix/alpine-java:8_jdk_unlimited
+    ports:
+      - '8091:8091'
+    working_dir: /posts-api
+    volumes:
+      - ./posts-api:/posts-api
+    command: './gradlew bootRun'
+    depends_on:
+      - eureka
+      - postgresdev
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
   postgresdev:
     image: postgres
     ports:

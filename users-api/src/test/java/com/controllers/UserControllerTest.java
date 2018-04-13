@@ -3,6 +3,7 @@ package com.controllers;
 
 import com.example.backendusers.controllers.UserController;
 import com.example.backendusers.models.User;
+import com.example.backendusers.repositories.PostRepository;
 import com.example.backendusers.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -38,6 +39,9 @@ public class UserControllerTest {
 
     @MockBean
     private UserRepository mockUserRepository;
+
+    @MockBean
+    private PostRepository mockPostRepository;
 
     @Autowired
     private MockMvc mockMvc;
