@@ -26,7 +26,7 @@ class SearchForm extends Component {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         this.getResults(this.state.search);
     }
 
@@ -38,15 +38,34 @@ class SearchForm extends Component {
 
     render() {
 
+        const userTitleStyle = {
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive',
+            'fontWeight': 'bold'
+        }
+
+        const searchInputStyle = {
+            'width': '50%'
+        }
+
+        const searchWrapperStyle = {
+            'width': '75%',
+            'margin': '0 auto',
+            'textAlign': 'center',
+            'fontFamily': 'Comfortaa, cursive'
+        }
+
         const searchResults = this.state.results.map((result, i)=>{
             return <SearchResult result={result} key={i} />
         })
 
         return (
-            <div>
+            <div style={searchWrapperStyle}>
                 <div>
-                    <h3>Search by Type of Notice</h3>
+                    <h1 style={userTitleStyle}>Search by Type of Notice</h1>
                     <input
+                        style={searchInputStyle}
+                        placeholder="Notice Type..."
                         id="search-bar"
                         type="text"
                         name="search"
