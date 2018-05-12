@@ -2,7 +2,7 @@
 
 ## General Assembly SECA
 A user interface and forum for the New York Records API.
-Created by Mat Bakutis for project 34in General Assembly's SECA program.
+Created by Mat Bakutis for project 4 in General Assembly's SECA program.
 
 ## How to Use
 ```
